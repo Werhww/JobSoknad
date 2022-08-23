@@ -4,7 +4,7 @@ Application for å bedre hverdager til Folk med diabetes. Hovedsakelig type 1, m
 
 Jeg har droppet appen og kodet er bygget veldig dårlig, selve appen går fortsatt an å kjøre men det er ikke så bra optimaliert.
 
-### NB!! Vis du skal kjøre appen  må du har riktig Kivy og KivyMD versjon !!
+#### NB!! Vis du skal kjøre appen  må du har riktig Kivy og KivyMD versjon !!
 
 Appen er kodet med:
 - Python
