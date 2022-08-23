@@ -1,0 +1,1156 @@
+<Main>:
+    
+    MDNavigationLayout:
+        size : root.width, root.height
+
+        ScreenManager:
+            id: screen_manager
+
+            Screen:
+                name: "home"
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDToolbar:
+                        id: toolbar
+                        title: "Home"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]] 
+
+                    FloatLayout:
+                        size: root.width, root.height
+                        insulinsvar:insulinsvar
+                        karbotall:karbotall
+
+
+                        BoxLayout:
+                            orientation: 'vertical'
+                            size_hint: (0.2, 0.3)
+                            pos_hint: {'top': 0.8, 'x': 0.4}
+
+                            MDTextField:
+                                id: karbotall
+                                hint_text: "Inusulin calculator"
+                                input_filter: 'int'
+                                helper_text: "Carbohydrates to Insulin calculator"
+                                helper_text_mode: "on_focus"
+
+                            MDRaisedButton:
+                                elevation: 10
+                                text: 'Kalkulate'
+                                on_release: root.kalkulate()
+                                size_hint: (1, None)
+
+                            MDLabel:
+                                text: ''
+                                halign: "center"
+                                id: insulinsvar
+
+            Screen:
+                name: "settings"
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDToolbar:
+                        id: toolbar
+                        title: "Settings"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]] 
+
+                    FloatLayout:
+                        size: root.width, root.height
+
+                        MDRaisedButton:
+                            text: 'hello'
+                            size_hint: (0.3, 0.3)
+                            pos_hint: {'x ': 0.3, 'y': 0.5}
+
+            Screen:
+                name: "food"
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDToolbar:
+                        id: toolbar
+                        title: "Drinks and Food"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]] 
+                        right_action_items: [['plus-box', lambda x: root.add_item(x)]]
+
+                    MDTabs:
+
+                        FoodTab:
+                            title: "Food"
+                            
+                        DrinksTab:
+                            title: "drinks"
+
+            Screen:
+                name: "login"
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDToolbar:
+                        id: toolbar
+                        title: "Drinks and Food"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.set_state("open")]] 
+
+                    FloatLayout:
+                        size: root.width, root.height
+
+            Screen
+                name: "add_foods"
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                screen_manager: screen_manager
+                nav_drawer: nav_drawer
+
+
+<ContentNavigationDrawer>:
+
+    cols: 1
+
+    OneLineListItem:
+        text: "Your Name"
+
+        size_hint: 1, None
+
+    OneLineAvatarListItem:
+        text: "Home"
+        on_release:
+            root.nav_drawer.set_state("close")
+            root.screen_manager.current = "home"
+
+        IconLeftWidget:
+            icon: "home"
+
+            on_release:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "home"
+
+
+    OneLineAvatarListItem:
+        text: "Food"
+        on_release:
+            root.nav_drawer.set_state("close")
+            root.screen_manager.current = "food"
+
+        IconLeftWidget:
+            icon: "food"
+            on_release:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "food"
+
+    OneLineAvatarListItem:
+        text: "Settings"
+        size_hint: 1, None
+        on_release:
+            root.nav_drawer.set_state("close")
+            root.screen_manager.current = "settings"
+
+        IconLeftWidget:
+            icon: "account-settings"
+
+            on_release:
+                root.nav_drawer.set_state("close")
+                root.screen_manager.current = "settings"
+
+<FoodTab>:
+
+<DrinksTab>:
+
+<Add_food>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+
+    MDTextField:
+        hint_text: "City"
+
+    MDTextField:
+        hint_text: "Street"
+
+    
+
+
+<loginwindow>:
+    deltallbl : antalldeltal
+    name:name
+    Label:
+        text: 'Name'
+        size_hint: (0.3, 0.3)
+        font_size: 80
+        pos_hint: {'x': 0.35, 'top': 1.1}
+
+    TextInput:
+        id: name
+        multiline: False
+        size_hint: (0.4, 0.06)
+        pos_hint: {'x': 0.3, 'top':0.75}
+
+    Button:
+        text: 'Neste'
+        pos_hint: {'x': 0.4, 'top': 0.13 }
+        size_hint: (None, None)
+        size: root.width / 6, root.height / 10
+        font_size: 52
+        on_release: root.showlogin2()
+
+    Label:
+        id: antalldeltal
+        size_hint: (0.3, 0.3)
+        font_size: 52
+        text: ''
+        pos_hint: {'x': 0.35, 'top': 0.425}
+
+    Label:
+        font_size: 52
+        text: 'Antall Delingstall på en dag'
+        pos_hint: {'x': 0.35 , 'top': 0.65}
+        size_hint: (0.3, 0.3)
+
+    Slider:
+        min: 1
+        max: 6
+        value: 1
+        step: 1
+        orientation: 'horizontal'
+        size_hint: (0.6,0.4)
+        pos_hint: {'x': 0.2, 'top': 0.6}
+        on_value: root.sliderdeltall(*args)
+
+    Button:
+        text: 'Avbryt'
+        on_release: root.close()
+        size_hint: (None, None)
+        size: root.width / 8, root.height / 10
+        font_size: 52
+        pos_hint: {'x': 0, 'top': 0.13}
+
+<loginwindow2_1>:
+    deltalltext1:deltal1
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+    Label:
+        id:error
+        size_hint: (0.3, 0.3)
+        pos_hint: {'x': 0.3, 'y': 0}
+
+    Label:
+        text: '1'
+        size_hint: (0.2, 0.2)
+        font_size: 52
+        pos_hint: {'x': 0.1, 'top': 0.88}
+
+    Label:
+        text: 'Delingstall'
+        font_size: 80
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.4, 'top':1}
+
+    TextInput:
+        id: deltal1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.8}
+    
+<loginwindow2_2>:
+    deltalltext1:deltal1
+    timer1:timer1
+    minuter1:minuter1
+    deltalltext2:deltal2
+    timer2:timer2
+    minuter2:minuter2
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+    Label:
+        id:error
+        size_hint: (0.3, 0.3)
+        pos_hint: {'x': 0.3, 'y': 0}
+
+    Label:
+        text: '1'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.9}
+
+    Label:
+        text: '2'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.8}
+
+    Label:
+        text: 'Delingstall'
+        font_size: 80
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.3, 'top':1}
+
+    Label:
+        text: 'Tidspunkt'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.58, 'top':1.05}
+
+    Label:
+        text:"Timer"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.53, 'top':1}
+
+    Label:
+        text:"Minutter"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.63, 'top':1}
+
+    TextInput:
+        id: deltal1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.85}
+
+    TextInput:
+        id: timer1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.85}
+
+    TextInput:
+        id: minuter1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.85}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.878}
+
+    TextInput:
+        id: deltal2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.75}
+
+    TextInput:
+        id: timer2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.75}
+
+    TextInput:
+        id: minuter2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.75}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.778}
+
+<loginwindow2_3>:
+    deltalltext1:deltal1
+    timer1:timer1
+    minuter1:minuter1
+    deltalltext2:deltal2
+    timer2:timer2
+    minuter2:minuter2
+    deltalltext3:deltal3
+    timer3:timer3
+    minuter3:minuter3
+    Label:
+        text: '1'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.9}
+
+    Label:
+        text: '2'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.8}
+
+    Label:
+        text: '3'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.7}
+
+    Label:
+        text: 'Delingstall'
+        font_size: 80
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.3, 'top':1}
+
+    Label:
+        text: 'Tidspunkt'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.58, 'top':1.05}
+
+    Label:
+        text:"Timer"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.53, 'top':1}
+
+    Label:
+        text:"Minutter"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.63, 'top':1}
+
+    TextInput:
+        id: deltal1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.85}
+
+    TextInput:
+        id: timer1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.85}
+
+    TextInput:
+        id: minuter1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.85}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.878}
+
+    TextInput:
+        id: deltal2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.75}
+
+    TextInput:
+        id: timer2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.75}
+
+    TextInput:
+        id: minuter2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.75}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.778}
+
+    Label:
+        id:error
+        size_hint: (0.3, 0.3)
+        pos_hint: {'x': 0.3, 'y': 0}
+
+    TextInput:
+        id: deltal3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.65}
+
+    TextInput:
+        id: timer3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.65}
+
+    TextInput:
+        id: minuter3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.65}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.678}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+<loginwindow2_4>:
+    deltalltext1:deltal1
+    timer1:timer1
+    minuter1:minuter1
+    deltalltext2:deltal2
+    timer2:timer2
+    minuter2:minuter2
+    deltalltext3:deltal3
+    timer3:timer3
+    minuter3:minuter3
+    deltalltext4:deltal4
+    timer4:timer4
+    minuter4:minuter4
+    Label:
+        text: '1'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.9}
+
+    Label:
+        text: '2'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.8}
+
+    Label:
+        text: '3'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.7}
+
+    Label:
+        text: 'Delingstall'
+        font_size: 80
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.3, 'top':1}
+
+    Label:
+        text: 'Tidspunkt'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.58, 'top':1.05}
+
+    Label:
+        text:"Timer"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.53, 'top':1}
+
+    Label:
+        text:"Minutter"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.63, 'top':1}
+
+    TextInput:
+        id: deltal1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.85}
+
+    TextInput:
+        id: timer1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.85}
+
+    TextInput:
+        id: minuter1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.85}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.878}
+
+    TextInput:
+        id: deltal2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.75}
+
+    TextInput:
+        id: timer2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.75}
+
+    TextInput:
+        id: minuter2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.75}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.778}
+
+    Label:
+        id:error
+        size_hint: (0.3, 0.3)
+        pos_hint: {'x': 0.3, 'y': 0}
+
+    TextInput:
+        id: deltal3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.65}
+
+    TextInput:
+        id: timer3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.65}
+
+    TextInput:
+        id: minuter3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.65}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.678}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+    Label:
+        text: '4'
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.6}
+
+    TextInput:
+        id: deltal4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.55}
+
+    TextInput:
+        id: timer4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.55}
+
+    TextInput:
+        id: minuter4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.55}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.578}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+<loginwindow2_5>:
+    deltalltext1:deltal1
+    timer1:timer1
+    minuter1:minuter1
+    deltalltext2:deltal2
+    timer2:timer2
+    minuter2:minuter2
+    deltalltext3:deltal3
+    timer3:timer3
+    minuter3:minuter3
+    deltalltext4:deltal4
+    timer4:timer4
+    minuter4:minuter4
+    deltalltext5:deltal5
+    timer5:timer5
+    minuter5:minuter5
+    Label:
+        text: '1'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.9}
+
+    Label:
+        text: '2'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.8}
+
+    Label:
+        text: '3'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.7}
+
+    Label:
+        text: 'Delingstall'
+        font_size: 80
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.3, 'top':1}
+
+    Label:
+        text: 'Tidspunkt'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.58, 'top':1.05}
+
+    Label:
+        text:"Timer"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.53, 'top':1}
+
+    Label:
+        text:"Minutter"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.63, 'top':1}
+
+    TextInput:
+        id: deltal1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.85}
+
+    TextInput:
+        id: timer1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.85}
+
+    TextInput:
+        id: minuter1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.85}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.878}
+
+    TextInput:
+        id: deltal2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.75}
+
+    TextInput:
+        id: timer2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.75}
+
+    TextInput:
+        id: minuter2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.75}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.778}
+
+    Label:
+        id:error
+        size_hint: (0.3, 0.3)
+        pos_hint: {'x': 0.3, 'y': 0}
+
+    TextInput:
+        id: deltal3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.65}
+
+    TextInput:
+        id: timer3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.65}
+
+    TextInput:
+        id: minuter3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.65}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.678}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+    Label:
+        text: '4'
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.6}
+
+    TextInput:
+        id: deltal4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.55}
+
+    TextInput:
+        id: timer4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.55}
+
+    TextInput:
+        id: minuter4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.55}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.578}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+    Label:
+        text: '5'
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.5}
+
+    TextInput:
+        id: deltal5
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.45}
+
+    TextInput:
+        id: timer5
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.45}
+
+    TextInput:
+        id: minuter5
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.45}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.478}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+<loginwindow2_6>:
+    deltalltext1:deltal1
+    timer1:timer1
+    minuter1:minuter1
+    deltalltext2:deltal2
+    timer2:timer2
+    minuter2:minuter2
+    deltalltext3:deltal3
+    timer3:timer3
+    minuter3:minuter3
+    deltalltext4:deltal4
+    timer4:timer4
+    minuter4:minuter4
+    deltalltext5:deltal5
+    timer5:timer5
+    minuter5:minuter5
+    deltalltext6:deltal6
+    timer6:timer6
+    minuter6:minuter6
+
+    Label:
+        text: 'Delingstall'
+        font_size: 80
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.3, 'top':1}
+
+    Label:
+        text: 'Tidspunkt'
+        font_size: 52
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.58, 'top':1.05}
+
+    Label:
+        text:"Timer"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.53, 'top':1}
+
+    Label:
+        text:"Minutter"
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.63, 'top':1}
+
+    TextInput:
+        id: deltal1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.85}
+
+    TextInput:
+        id: timer1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.85}
+
+    TextInput:
+        id: minuter1
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.85}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.878}
+
+    TextInput:
+        id: deltal2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.75}
+
+    TextInput:
+        id: timer2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.75}
+
+    TextInput:
+        id: minuter2
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.75}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.778}
+
+    Label:
+        id:error
+        size_hint: (0.3, 0.3)
+        pos_hint: {'x': 0.3, 'y': 0}
+
+    TextInput:
+        id: deltal3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.65}
+
+    TextInput:
+        id: timer3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.65}
+
+    TextInput:
+        id: minuter3
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.65}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.678}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+    TextInput:
+        id: deltal4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.55}
+
+    TextInput:
+        id: timer4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.55}
+
+    TextInput:
+        id: minuter4
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.55}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.578}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+    TextInput:
+        id: deltal5
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.45}
+
+    TextInput:
+        id: timer5
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.45}
+
+    TextInput:
+        id: minuter5
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.45}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.478}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
+
+    TextInput:
+        id: deltal6
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.3, 'top': 0.35}
+
+    TextInput:
+        id: timer6
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.6, 'top': 0.35}
+
+    TextInput:
+        id: minuter6
+        multiline: False
+        size_hint: (0.07, 0.06)
+        pos_hint: {'x': 0.7, 'top': 0.35}
+
+    Label:
+        text: ":"
+        font_size: 42
+        size_hint: (0.1, 0.1)
+        pos_hint: {'x': 0.635, 'top': 0.378}
+
+    Label:
+        text: '1'
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.9}
+
+    Label:
+        text: '2'
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.8}
+
+    Label:
+        text: '3'
+        font_size: 42
+        size_hint: (0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.7}
+
+    Label:
+        text: '4'
+        font_size: 42
+        size_hint:(0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.6}
+
+    Label:
+        text: '5'
+        font_size: 42
+        size_hint:(0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.5}
+
+    Label:
+        text: '6'
+        font_size: 42
+        size_hint:(0.2, 0.2)
+        pos_hint: {'x': 0.1, 'top': 0.4}
+
+    Button:
+        id:loginbtn
+        text: 'Login'
+        size_hint: (0.3, 0.15)
+        pos_hint: {'x': 0.35, 'y': 0}
+        on_release: root.login()
